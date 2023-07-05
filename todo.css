@@ -10,6 +10,8 @@ body {
 .custom-header {
   padding: 10px 20px;
   box-shadow: 0 0 2px 0 rgb(114, 114, 114);
+  margin-right: 0;
+  margin-left: 0;
 }
 .custom-header h3 {
   display: inline-block;

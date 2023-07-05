@@ -84,7 +84,7 @@ function loadTodos() {
 
         item += `<div class="card col-md-3 m-1" todoId="${element.todoId}" style="width: 18rem;" dragable="true">
         <div class="card-body">
-        <button class="deletenote btn btn-danger btn-sm" onclick="deletenote(${element.todoId})">Delete</button>
+        <button class="deletenote btn btn-danger btn-sm" onclick="deletenote(${element.todoId})"><i class="fa fa-trash" aria-hidden="true"></i></button>
           <h5 class="card-title">${element.title === "" ? 'Note' : element.title}</h5>
           <p class="card-text">${element.description}</p>
         </div>
@@ -115,6 +115,7 @@ function deletenote(id) {
   
   $.ajax(settings).done(function (response) {
     console.log(response);
+    loadTodos();
   });
 }
 
