@@ -20,6 +20,8 @@ body {
   color: #5f6368;
   margin-top: auto;
   margin-bottom: auto;
+  position: absolute;
+  top: 10px;
 }
 
 .c-container {
