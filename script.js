@@ -32,13 +32,15 @@ const addText = document.getElementById("addText");
 const addNoteButton = document.getElementById("addNote");
 const notesDiv = document.getElementById("notes");
 
-var todosUrl = "http://todo-api.aavaz.biz/todos?";
+var todosUrl = "http://todo-api.aavaz.biz/todos";
 var bearerToken = 'Bearer ' + localStorage.getItem('token');
 
 
 const notes = [];
 
-function addNotes() {
+addNoteButton.addEventListener('click', addNotes);
+
+async function addNotes() {
 
   if (addText.value == '') {
     alert('Add your Note')
@@ -62,7 +64,7 @@ function addNotes() {
     }
   })
 
-  loadTodos();
+  await loadTodos();
 }
 
 function loadTodos() {
@@ -70,13 +72,11 @@ function loadTodos() {
     type: 'GET',
     url: todosUrl,
     headers: {
-      // 'Accept': 'application/json',
       'Authorization': bearerToken,
       'Content-Type': 'application/json',
       "Accept": "*/*",
     },
     success: function (todosResponse) {
-      // notes = todosResponse.content;
       let item = '';
       todosResponse.content.forEach(element => {
 
@@ -99,24 +99,22 @@ function loadTodos() {
   });
 }
 
-function deletenote(id) {
-  const todoId = id;
-  const settings = {
-    // "async": true,
-    // "crossDomain": true,
-    "url": "http://todo-api.aavaz.biz/todos/"+ todoId,
-    "method": "DELETE",
+async function deletenote(id) {
+  const todoId = id
+  const config = {
+    "type": "DELETE",
+    "url": `${todosUrl}/${todoId}`,
     "headers": {
-      "Accept": "application/json",
-      "Content-Type": "application/json",
-      "Authorization": bearerToken
-    }
+      "Authorization": bearerToken,
+      "Accept": "*/*"
+    },
+    // data: JSON.stringify({todoId: todoId})
   };
-  
-  $.ajax(settings).done(function (response) {
+
+  $.ajax(config).done(function (response) {
     console.log(response);
-    loadTodos();
   });
+  await loadTodos();
 }
 
-addNoteButton.addEventListener('click', addNotes);
+
